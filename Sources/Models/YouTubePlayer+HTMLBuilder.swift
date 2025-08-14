@@ -184,6 +184,16 @@ public extension YouTubePlayer.HTMLBuilder {
                         width: 100% !important;
                         height: 100% !important;
                     }
+                    .embed-container iframe {
+                      position: absolute;
+                      top: 0;
+                      left: 0;
+                      transform: scale(0.8695);
+                      transform-origin: top left;
+
+                      width: 115vw;
+                      height: 115vh;
+                    }
                     ::-webkit-scrollbar {
                         display: none !important;
                     }
