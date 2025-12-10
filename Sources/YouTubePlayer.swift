@@ -1,6 +1,6 @@
 import Combine
 import Foundation
-
+import WebKit
 // MARK: - YouTubePlayer
 
 /// A YouTube player that provides a native interface to the [YouTube iFrame Player API](https://developers.google.com/youtube/iframe_api_reference).
@@ -49,7 +49,8 @@ public final class YouTubePlayer: ObservableObject {
     
     /// The configuration.
     public let configuration: Configuration
-    
+    public let configurator: (inout WKWebViewConfiguration) -> Void
+    public let webViewSetup: (WKWebView) -> Void
     /// A Boolean value that determines whether logging is enabled.
     public var isLoggingEnabled: Bool {
         didSet {
@@ -93,11 +94,15 @@ public final class YouTubePlayer: ObservableObject {
         source: Source? = nil,
         parameters: Parameters = .init(),
         configuration: Configuration = .init(),
-        isLoggingEnabled: Bool = false
+        isLoggingEnabled: Bool = false,
+        configurator: @escaping (inout WKWebViewConfiguration) -> Void = { _ in },
+        webViewSetup: @escaping (WKWebView) -> Void = { _ in }
     ) {
         self.source = source
         self.parameters = parameters
         self.configuration = configuration
+        self.configurator = configurator
+        self.webViewSetup = webViewSetup
         self.isLoggingEnabled = isLoggingEnabled
     }
     

@@ -30,8 +30,6 @@ public extension YouTubePlayer {
         /// Boolean value indicating whether a non-persistent website data store should be used to get and set the site’s cookies and track cached data objects.
         public let useNonPersistentWebsiteDataStore: Bool
 
-        public var websiteDataStore: WKWebsiteDataStore = .nonPersistent()
-
         /// A Boolean value indicating if safe area insets should be added automatically to content insets.
         public let automaticallyAdjustsContentInsets: Bool
         

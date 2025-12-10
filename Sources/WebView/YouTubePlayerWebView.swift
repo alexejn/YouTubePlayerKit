@@ -32,10 +32,12 @@ final class YouTubePlayerWebView: WKWebView {
         super.init(
             frame: .zero,
             configuration: {
-                let configuration = WKWebViewConfiguration()
-                // Do not persist cookies and website data storage to disk
-                configuration.websiteDataStore = player.configuration.websiteDataStore
+                var configuration = WKWebViewConfiguration()
                 #if !os(macOS)
+                // Do not persist cookies and website data storage to disk
+               configuration.websiteDataStore = player.configuration.useNonPersistentWebsiteDataStore
+                        ? .nonPersistent()
+                        : .default()
                 // Set allows inline media playback
                 configuration.allowsInlineMediaPlayback = player.configuration.allowsInlineMediaPlayback
                 // Set allows picture in picture media playback
@@ -54,14 +56,13 @@ final class YouTubePlayerWebView: WKWebView {
                 } else {
                     configuration.preferences.setValue(isElementFullscreenEnabled, forKey: "fullScreenEnabled")
                 }
-
-                configuration.defaultWebpagePreferences.allowsContentJavaScript = true
-                configuration.preferences.javaScriptEnabled = true
+                player.configurator(&configuration)
                 return configuration
             }()
         )
         // Setup
         self.setup(using: player)
+        player.webViewSetup(self)
         // Load
         try? self.load()
     }

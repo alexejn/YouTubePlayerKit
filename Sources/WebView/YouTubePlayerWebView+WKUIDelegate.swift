@@ -1,6 +1,6 @@
 import Foundation
 import WebKit
-
+import OSLog
 // MARK: - YouTubePlayerWebView+WKUIDelegate
 
 extension YouTubePlayerWebView: WKUIDelegate {
