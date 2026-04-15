@@ -90,7 +90,7 @@ public final class YouTubePlayer: ObservableObject {
     ///   - parameters: The parameters. Default value `.init()`
     ///   - configuration: The configuration. Default value `.init()`
     ///   - isLoggingEnabled: A Boolean value that determines whether logging is enabled. Default value `false`
-    nonisolated public init(
+    public init(
         source: Source? = nil,
         parameters: Parameters = .init(),
         configuration: Configuration = .init(),
@@ -115,7 +115,7 @@ public extension YouTubePlayer {
     /// Creates a new instance of ``YouTubePlayer`` from a URL
     /// - Parameters:
     ///   - url: The URL.
-    nonisolated convenience init(
+    convenience init(
         url: URL
     ) {
         self.init(
@@ -128,7 +128,7 @@ public extension YouTubePlayer {
     /// Creates a new instance of ``YouTubePlayer`` from a URL string.
     /// - Parameters:
     ///   - urlString: The URL string.
-    nonisolated convenience init(
+    convenience init(
         urlString: String
     ) {
         self.init(
@@ -142,11 +142,11 @@ public extension YouTubePlayer {
 
 // MARK: - ExpressibleByStringLiteral
 
-extension YouTubePlayer: ExpressibleByStringLiteral {
+extension YouTubePlayer: @MainActor ExpressibleByStringLiteral {
     
     /// Creates a new instance of ``YouTubePlayer``
     /// - Parameter urlString: The url string.
-    nonisolated public convenience init(
+    public convenience init(
         stringLiteral urlString: String
     ) {
         self.init(
@@ -158,7 +158,7 @@ extension YouTubePlayer: ExpressibleByStringLiteral {
 
 // MARK: - Decodable
 
-extension YouTubePlayer: Decodable {
+extension YouTubePlayer: @MainActor Decodable {
     
     /// The coding keys.
     private enum CodingKeys: CodingKey {
@@ -170,7 +170,7 @@ extension YouTubePlayer: Decodable {
     
     /// Creates a new instance of ``YouTubePlayer``
     /// - Parameter decoder: The decoder.
-    nonisolated public convenience init(
+    public convenience init(
         from decoder: Decoder
     ) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
